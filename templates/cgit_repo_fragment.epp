@@ -1,0 +1,8 @@
+<%- | String $url,
+      String $path,
+      String $desc,
+| -%>
+# <%= $url %>
+repo.url=<%= $url %>
+repo.path=<%= $path %>
+repo.desc=<%= $desc %>

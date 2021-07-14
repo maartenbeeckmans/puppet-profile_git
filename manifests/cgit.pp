@@ -22,35 +22,39 @@ class profile_git::cgit (
   }
 
   if $manage_apache {
-    include apache::mod::cgi
+    include profile_apache
+    apache::mod { 'cgi': }
 
     profile_apache::vhost { 'cgit':
       ensure            => present,
       servername        => $servername,
       serveraliases     => $serveraliases,
+      setenv            => ['GIT_PROJECT_ROOT /var/lib/gitolite3/repositories/'],
       port              => 80,
-      docroot           => $cgit_home,
+      docroot           => '/usr/share/cgit/',
       manage_docroot    => false,
       directories       => [
         {
-          'path'           => $cgit_home,
+          'path'           => '/usr/share/cgit/',
           'allow_override' => 'None',
-          'options'        => 'ExecCGI',
-          'order'          => 'allow,deny',
+          'options'        => 'None',
+          'require'        => 'all granted',
+        },
+        {
+          'path'           => "$cgit_home/",
+          'allow_override' => 'None',
+          'options'        => 'ExecCGI FollowSymlinks',
+          'require'        => 'all granted',
         }
       ],
       aliases           => [
         {
-          alias => '/cgit.png',
-          path  => "${cgit_home}/cgit.png",
+          scriptalias => '/',
+          path        => "${cgit_home}/cgit.cgi/",
         },
         {
-          alias => '/cgit.css',
-          path  => "${cgit_home}/cgit.css",
-        },
-        {
-          alias => '/',
-          path  => "${cgit_home}/cgit.cgi/",
+          alias => '/cgit-css',
+          path  => '/usr/share/cgit/',
         },
       ],
       manage_sd_service => $manage_sd_service,
@@ -67,4 +71,7 @@ class profile_git::cgit (
     content => epp("${module_name}/cgitrc.epp", $_cgit_config)
   }
 
+  concat { '/etc/cgitrc.gitolite':
+    ensure => present,
+  }
 }

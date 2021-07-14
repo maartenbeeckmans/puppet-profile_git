@@ -1,5 +1,7 @@
 ---
 profile_git::setup_cgit: true
+profile_git::setup_gitolite: true
+profile_git::repositories: {}
 
 # Cgit config
 profile_git::cgit::cgit_package_name: 'cgit'
@@ -12,4 +14,7 @@ profile_git::cgit::servername: "%{facts.networking.fqdn}"
 profile_git::cgit::serveraliases: []
 profile_git::cgit::manage_sd_service: true
 profile_git::cgit::sd_service_tags: []
+
+# Gitolite config
+profile_git::gitolite::users: {}
 ...
