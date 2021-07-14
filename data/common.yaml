@@ -1,0 +1,15 @@
+---
+profile_git::setup_cgit: true
+
+# Cgit config
+profile_git::cgit::cgit_package_name: 'cgit'
+profile_git::cgit::cgit_package_ensure: 'installed'
+profile_git::cgit::cgit_highlighting_package_name: 'python-pygments'
+profile_git::cgit::cgit_highlighting_package_ensure: 'installed'
+profile_git::cgit::manage_apache: true
+profile_git::cgit::cgit_home: '/usr/lib/cgit'
+profile_git::cgit::servername: "%{facts.networking.fqdn}"
+profile_git::cgit::serveraliases: []
+profile_git::cgit::manage_sd_service: true
+profile_git::cgit::sd_service_tags: []
+...

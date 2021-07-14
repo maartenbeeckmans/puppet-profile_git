@@ -1,0 +1,91 @@
+<%- | String $cgit_home,
+| -%>
+# File managed by Puppet
+# All manual changes will be overwritten
+#
+# cgit config
+# see cgitrc(5) for details
+
+css=/cgit-css/cgit.css
+logo=/cgit-css/cgit.png
+
+source-filter=<%= $cgit_home -%>/filters/syntax-highlighting.py
+about-filter=<%= $cgit_home -%>/filters/about-formatting.sh
+root-title=Cgit server
+root-desc=Here you can find all my public projects.
+
+snapshots=tar.gz zip
+
+#settings
+#cache-size=100
+clone-url=http://git.development.beeckmans.cloud/cgit/$CGIT_REPO_URL
+
+#default
+enable-index-owner=1
+
+#not default
+enable-index-links=1
+remove-suffix=1
+
+#nice to have...
+enable-blame=1
+enable-commit-graph=1
+enable-log-filecount=1
+enable-log-linecount=1
+branch-sort=age
+
+#do not index sites
+robots=noindex, nofollow
+
+# if cgit messes up links, use a virtual-root. For example, cgit.example.org/ has this value:
+#virtual-root=/
+
+# Allow using gitweb.* keys
+enable-git-config=1
+
+##
+## List of common mimetypes
+##
+mimetype.gif=image/gif
+mimetype.html=text/html
+mimetype.jpg=image/jpeg
+mimetype.jpeg=image/jpeg
+mimetype.pdf=application/pdf
+mimetype.png=image/png
+mimetype.svg=image/svg+xml
+
+##
+## Search for these files in the root of the default branch of repositories
+## for coming up with the about page:
+##
+readme=:README.md
+readme=:readme.md
+readme=:README.mkd
+readme=:readme.mkd
+readme=:README.rst
+readme=:readme.rst
+readme=:README.html
+readme=:readme.html
+readme=:README.htm
+readme=:readme.htm
+readme=:README.txt
+readme=:readme.txt
+readme=:README
+readme=:readme
+readme=:INSTALL.md
+readme=:install.md
+readme=:INSTALL.mkd
+readme=:install.mkd
+readme=:INSTALL.rst
+readme=:install.rst
+readme=:INSTALL.html
+readme=:install.html
+readme=:INSTALL.htm
+readme=:install.htm
+readme=:INSTALL.txt
+readme=:install.txt
+readme=:INSTALL
+readme=:install
+
+# Include repositories config
+#include=/etc/cgitrc.d/repos
