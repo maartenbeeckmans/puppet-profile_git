@@ -49,12 +49,12 @@ class profile_git::cgit (
       ],
       aliases           => [
         {
-          scriptalias => '/',
-          path        => "${cgit_home}/cgit.cgi/",
-        },
-        {
           alias => '/cgit-css',
           path  => '/usr/share/cgit/',
+        },
+        {
+          scriptalias => '/',
+          path        => "${cgit_home}/cgit.cgi/",
         },
       ],
       manage_sd_service => $manage_sd_service,

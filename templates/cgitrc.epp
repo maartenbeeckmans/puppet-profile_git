@@ -88,4 +88,4 @@ readme=:INSTALL
 readme=:install
 
 # Include gitolite repositories
-include=/tmp/cgitrc.gitolite
+include=/etc/cgitrc.gitolite
