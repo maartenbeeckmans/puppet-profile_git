@@ -20,7 +20,7 @@ define profile_git::repository (
     rules       => $rules,
     description => "${description}\n",
   }
-  
+
   $_repository_config = {
     'url'  => $name,
     'path' => "${repository_root}/${name}.git",
