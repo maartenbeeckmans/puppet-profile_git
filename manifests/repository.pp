@@ -12,7 +12,7 @@ define profile_git::repository (
     ensure   => 'bare',
     provider => 'git',
     owner    => 'git',
-    group    => 'git',
+    group    => $::apache::group,
     source   => $source,
   }
 

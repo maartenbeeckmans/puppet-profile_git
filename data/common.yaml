@@ -2,6 +2,7 @@
 profile_git::setup_cgit: true
 profile_git::setup_gitolite: true
 profile_git::repositories: {}
+profile_git::repository_defaults: {}
 
 # Cgit config
 profile_git::cgit::cgit_package_name: 'cgit'
