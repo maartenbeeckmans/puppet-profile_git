@@ -1,8 +1,6 @@
 ---
 profile_git::setup_cgit: true
 profile_git::setup_gitolite: true
-profile_git::repositories: {}
-profile_git::repository_defaults: {}
 
 # Cgit config
 profile_git::cgit::cgit_package_name: 'cgit'
@@ -17,5 +15,10 @@ profile_git::cgit::manage_sd_service: true
 profile_git::cgit::sd_service_tags: []
 
 # Gitolite config
+profile_git::gitolite::sync_repos_cron: true
+profile_git::gitolite::on_calendar: '*-*-* *:00:00'
+profile_git::gitolite::repositories: {}
+profile_git::gitolite::repository_defaults: {}
 profile_git::gitolite::users: {}
+profile_git::gitolite::user_defaults: {}
 ...

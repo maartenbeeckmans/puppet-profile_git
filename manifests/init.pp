@@ -4,8 +4,6 @@
 class profile_git (
   Boolean $setup_cgit,
   Boolean $setup_gitolite,
-  Hash    $repositories,
-  Hash    $repository_defaults,
 ) {
   if $setup_cgit {
     include profile_git::cgit
@@ -14,5 +12,4 @@ class profile_git (
     include profile_git::gitolite
   }
 
-  create_resources('profile_git::repository', $repositories, $repository_defaults)
 }

@@ -3,32 +3,27 @@
 #
 define profile_git::repository (
   Stdlib::Absolutepath $repository_root = '/srv/gitolite/repositories',
+  Array[String]        $groups          = [],
   Hash                 $rules           = {},
-  String               $description     = 'Managed by Puppet',
+  String               $description     = $title,
   Hash                 $remotes         = {},
-  Optional[String]     $source          = undef,
+  Hash                 $options         = {},
 ) {
-  vcsrepo { "${repository_root}/${name}.git":
-    ensure   => 'bare',
-    provider => 'git',
+  $_full_path = extlib::path_join(concat([$repository_root], $groups, "${name}.git"))
+  
+  file { $_full_path:
+    ensure   => 'directory',
     owner    => 'git',
     group    => $::apache::group,
-    source   => $source,
   }
 
   gitolite::repo { $name:
-    rules       => $rules,
-    description => "${description}\n",
-  }
-
-  $_repository_config = {
-    'url'  => $name,
-    'path' => "${repository_root}/${name}.git",
-    'desc' => $description,
-  }
-  concat::fragment { $name:
-    target  => '/etc/cgitrc.gitolite',
-    order   => '1',
-    content => epp("${module_name}/cgit_repo_fragment.epp", $_repository_config)
+    rules         => $rules,
+    description   => $description,
+    comments      => concat($groups, $description),
+    remotes       => $remotes,
+    groups        => $groups,
+    remote_option => '-v',
+    options       => $options,
   }
 }

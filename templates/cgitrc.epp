@@ -87,5 +87,6 @@ readme=:install.txt
 readme=:INSTALL
 readme=:install
 
-# Include gitolite repositories
-include=/etc/cgitrc.gitolite
+# Scan for gitolite repos
+project-list=/srv/gitolite/projects.list
+scan-path=/srv/gitolite/repositories

@@ -2,7 +2,12 @@
 #
 #
 class profile_git::gitolite (
-  Hash $users,
+  Boolean $sync_repos_cron,
+  String  $on_calendar,
+  Hash    $users,
+  Hash    $user_defaults,
+  Hash    $repositories,
+  Hash    $repository_defaults,
 ) {
   class { 'gitolite':
     user     => 'git',
@@ -13,5 +18,13 @@ class profile_git::gitolite (
     add_testing_repo => false,
   }
 
-  create_resources('gitolite::user', $users)
+  if $sync_repos_cron {
+    profile_base::systemd_timer { 'sync-gitolite-repos':
+      on_calendar => $on_calendar,
+      command     => '/srv/gitolite/upgrade-repos.sh',
+    }
+  }
+
+  create_resources('gitolite::user', $users, $user_defaults)
+  create_resources('profile_git::repository', $repositories, $repository_defaults)
 }

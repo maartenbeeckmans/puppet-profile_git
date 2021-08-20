@@ -70,8 +70,4 @@ class profile_git::cgit (
     mode    => '0755',
     content => epp("${module_name}/cgitrc.epp", $_cgit_config)
   }
-
-  concat { '/etc/cgitrc.gitolite':
-    ensure => present,
-  }
 }
